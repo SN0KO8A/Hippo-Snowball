@@ -593,8 +593,9 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Script/Animal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Animal.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Script/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Hero.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -675,7 +676,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1619170023037</updated>
-      <workItem from="1619170045647" duration="18289000" />
+      <workItem from="1619170045647" duration="19091000" />
     </task>
     <servers />
   </component>
