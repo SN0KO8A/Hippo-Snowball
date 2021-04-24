@@ -9,6 +9,8 @@ public class Animal : MonoBehaviour
     [SerializeField] private int lives;
     [SerializeField] private float speed;
     [SerializeField] private float strength;
+    [Tooltip("In seconds")]
+    [SerializeField] private float timeForThrow;
 
     [Space] 
     [SerializeField] private Transform attackPoint;
@@ -42,13 +44,14 @@ public class Animal : MonoBehaviour
         }
     }
 
+    protected float TimeForThrow => timeForThrow;
+
     protected virtual void Start()
     {
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         skeleton = skeletonAnimation.Skeleton;
         animationState = skeletonAnimation.AnimationState;
-        
-        
+
         rigidbody2D = GetComponent<Rigidbody2D>();
         
         SetAnimation(idleAnimation, true, true);

@@ -35,4 +35,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+<<<<<<< Updated upstream
+*.log
+=======
+Hippo Snowball/.idea/.idea.Hippo Snowball/.idea/workspace.xml
+Hippo Snowball/.idea/.idea.Hippo Snowball/.idea/contentModel.xml
+>>>>>>> Stashed changes
 *.log
