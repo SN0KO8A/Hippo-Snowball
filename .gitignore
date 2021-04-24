@@ -36,3 +36,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Hippo Snowball/.idea/.idea.Hippo Snowball/.idea/workspace.xml
+*.log

@@ -1,15 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+
+[System.Serializable]
+class ObjectPoolItem
+{
+    public GameObject objectToPool;
+    public int amountToPool;
+    public List<GameObject> pooledObjects = new List<GameObject>();
+}
 
 public class ObjectPooler : MonoBehaviour
 {
-    [SerializeField] private GameObject objectToPool;
-    [SerializeField] private int amountToPool;
-
-    private List<GameObject> pooledObjects = new List<GameObject>();
-
+    [SerializeField] private List<ObjectPoolItem> objectsToPool = new List<ObjectPoolItem>();
     private static ObjectPooler sharedInstance;
 
     private void Awake()
@@ -19,24 +25,35 @@ public class ObjectPooler : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < amountToPool; i++)
+        //Spawning objects
+        foreach (ObjectPoolItem current in objectsToPool)
         {
-            GameObject current = Instantiate(objectToPool, transform.position, transform.rotation, transform);
-            current.SetActive(false);
-            pooledObjects.Add(current);
+            for (int i = 0; i < current.amountToPool; i++)
+            {
+                GameObject currentGameObject = Instantiate(current.objectToPool, transform.position, transform.rotation, transform);
+                currentGameObject.SetActive(false);
+                current.pooledObjects.Add(currentGameObject);
+            }
         }
     }
 
-    public static GameObject GetObject()
+    public static GameObject GetObject(GameObject gameObject)
     {
-        for (int i = 0; i < sharedInstance.amountToPool; i++)
+        foreach (ObjectPoolItem current in sharedInstance.objectsToPool)
         {
-            if (!sharedInstance.pooledObjects[i].activeInHierarchy)
+            if (gameObject.Equals(current.objectToPool))
             {
-                return sharedInstance.pooledObjects[i];
+                for (int i = 0; i < current.amountToPool; i++)
+                {
+                    if (!current.pooledObjects[i].activeInHierarchy)
+                    {
+                        return current.pooledObjects[i];
+                    }
+                }
             }
         }
-
+        
+        Debug.LogWarning($"Object Pooler: I didn't find the {gameObject} in the pool");
         return null;
     }
 }

@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 75, y: 400}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &566195945
@@ -898,8 +898,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded66c7f4163be64fbaf648e23a9efdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 4721240695042017860, guid: 5a582d88e81c33642a197f340dbb7efc, type: 3}
-  amountToPool: 5
+  objectsToPool:
+  - objectToPool: {fileID: 4721240695042017860, guid: 5a582d88e81c33642a197f340dbb7efc, type: 3}
+    amountToPool: 2
+    pooledObjects: []
+  - objectToPool: {fileID: 4721240695042017860, guid: 5095da2d9b919824b9440b2f2a96a7da, type: 3}
+    amountToPool: 2
+    pooledObjects: []
 --- !u!1 &1287489375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1232,7 @@ MonoBehaviour:
   speed: 250
   strength: 12
   timeForThrow: 5
+  bullet: {fileID: 4721240695042017860, guid: 5095da2d9b919824b9440b2f2a96a7da, type: 3}
   attackPoint: {fileID: 761676442}
   idleAnimation: Idle5
   walkAnimation: walk
@@ -1403,6 +1409,7 @@ MonoBehaviour:
   speed: 300
   strength: 12
   timeForThrow: 2
+  bullet: {fileID: 4721240695042017860, guid: 5a582d88e81c33642a197f340dbb7efc, type: 3}
   attackPoint: {fileID: 1420504495}
   idleAnimation: Idle3
   walkAnimation: walk

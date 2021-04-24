@@ -13,6 +13,7 @@ public class Animal : MonoBehaviour
     [SerializeField] private float timeForThrow;
 
     [Space] 
+    [SerializeField] private GameObject bullet;
     [SerializeField] private Transform attackPoint;
     
     [Header("Animation")]
@@ -83,7 +84,7 @@ public class Animal : MonoBehaviour
     protected virtual void ThrowBall(float throwStrength)
     {
         //Spawning snowball
-        GameObject snowball = ObjectPooler.GetObject();
+        GameObject snowball = ObjectPooler.GetObject(bullet);
         snowball.SetActive(true);
         snowball.transform.position = attackPoint.position;
         
