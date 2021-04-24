@@ -13,8 +13,6 @@ public class Hero : Animal
     [SerializeField] private SnowIndicator snowIndicator;
     [SerializeField] private StrengthIndicator strengthIndicator;
 
-    private bool canThrow = true;
-
     void FixedUpdate()
     {
         float horizontalSpeed = joystick.xAxis.value;
@@ -24,7 +22,6 @@ public class Hero : Animal
     public void Throw()
     {
         ThrowBall(strengthIndicator.StrengthValue);
-        canThrow = false;
         throwButton.interactable = false;
 
         StartCoroutine(TimeThrowCooldown());
@@ -41,7 +38,6 @@ public class Hero : Animal
         //And restoring timer and ability to throwing
         snowIndicator.gameObject.SetActive(false);
         snowIndicator.ResetIndicator();
-        canThrow = true;
         throwButton.interactable = true;
     }
 }

@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 1
-  speed: 250
+  speed: 2.5
   strength: 12
   timeForThrow: 5
   bullet: {fileID: 4721240695042017860, guid: 5095da2d9b919824b9440b2f2a96a7da, type: 3}
@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
-  speed: 300
+  speed: 3
   strength: 12
   timeForThrow: 2
   bullet: {fileID: 4721240695042017860, guid: 5a582d88e81c33642a197f340dbb7efc, type: 3}

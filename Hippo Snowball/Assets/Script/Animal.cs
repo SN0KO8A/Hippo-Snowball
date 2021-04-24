@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Spine.Unity;
 using UnityEngine;
 
@@ -21,30 +22,19 @@ public class Animal : MonoBehaviour
     [SpineAnimation,SerializeField] private string walkAnimation;
     [SpineAnimation,SerializeField] private string runAnimation;
     [SpineAnimation,SerializeField] private string getHitAnimation;
-
+    
+    //States
+    private bool canMove = true;
+    private bool deffeated = false;
+    
     //Cache
     private SkeletonAnimation skeletonAnimation;
     private Spine.AnimationState animationState;
     private Spine.Skeleton skeleton;
     
     private string currentAnimation = "";
-
     private Rigidbody2D rigidbody2D;
     
-    public int Lives
-    {
-        get => lives;
-        set
-        {
-            lives = value;
-
-            if (lives <= 0)
-            {
-                Die();
-            }
-        }
-    }
-
     protected float TimeForThrow => timeForThrow;
 
     protected virtual void Start()
@@ -55,30 +45,33 @@ public class Animal : MonoBehaviour
 
         rigidbody2D = GetComponent<Rigidbody2D>();
         
-        SetAnimation(idleAnimation, true, true);
+        SetAnimation(idleAnimation, true, skeleton.FlipX);
     }
 
     protected virtual void Move(float horizontalSpeed)
     {
-        float newSpeed = horizontalSpeed * speed * Time.deltaTime;
-        bool looksRight = horizontalSpeed > 0;
-
-        if (horizontalSpeed >= 0.5f || horizontalSpeed <= -0.5f)
+        if (canMove)
         {
-            SetAnimation(runAnimation, true, looksRight);
-        }
+            float newSpeed = horizontalSpeed * speed;
+            bool looksRight = horizontalSpeed < 0;
 
-        else if (horizontalSpeed >= 0.05f || horizontalSpeed <= -0.05f)
-        {
-            SetAnimation(walkAnimation, true, looksRight);
-        }
+            if (horizontalSpeed >= 0.5f || horizontalSpeed <= -0.5f)
+            {
+                SetAnimation(runAnimation, true, looksRight);
+            }
 
-        else
-        {
-            SetAnimation(idleAnimation, true, looksRight);
-        }
+            else if (horizontalSpeed >= 0.05f || horizontalSpeed <= -0.05f)
+            {
+                SetAnimation(walkAnimation, true, looksRight);
+            }
 
-        rigidbody2D.velocity = new Vector2(newSpeed, 0f);
+            else
+            {
+                SetAnimation(idleAnimation, true, skeleton.FlipX);
+            }
+
+            rigidbody2D.velocity = new Vector2(newSpeed, 0f);
+        }
     }
 
     protected virtual void ThrowBall(float throwStrength)
@@ -93,19 +86,45 @@ public class Animal : MonoBehaviour
 
     protected void SetAnimation(string animation, bool loop, bool looksRight)
     {
-        skeleton.FlipX = !looksRight;
+        skeleton.FlipX = looksRight;
 
+        Debug.Log($"{animation}");
         if (currentAnimation.Equals(animation))
         {
+            Debug.Log($"Hah! {animation}");
             return;
         }
 
         animationState.SetAnimation(0, animation, loop);
         currentAnimation = animation;
     }
-    
+
+    //<summary> Animal gets hit, and it loose one life
+    public virtual void ToGetHit()
+    {
+        lives--;
+
+        canMove = false;
+        SetAnimation(getHitAnimation, false, skeleton.FlipX);
+        
+        if (lives <= 0)
+        {
+            Die();
+        }
+
+        StartCoroutine(StunEffect());
+    }
+
+    private IEnumerator StunEffect()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(skeleton.Data.FindAnimation(getHitAnimation).Duration);
+        canMove = true;
+    }
+
     protected virtual void Die()
     {
+        deffeated = true;
         Debug.Log("Animal: The animal was defeated");
     }
 }

@@ -29,7 +29,7 @@ public class Snowball : MonoBehaviour
 
         if (animal)
         {
-            animal.Lives--;
+            animal.ToGetHit();
         }
 
         Despawn();
