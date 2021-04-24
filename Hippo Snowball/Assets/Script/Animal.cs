@@ -5,11 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(SkeletonAnimation))]
 public class Animal : MonoBehaviour
 {
-    [Header("State")]
+    [Header("Stats")]
     [SerializeField] private int lives;
     [SerializeField] private float speed;
     [SerializeField] private float strength;
 
+    [Space] 
+    [SerializeField] private Transform attackPoint;
+    
     [Header("Animation")]
     [SpineAnimation,SerializeField] private string idleAnimation;
     [SpineAnimation,SerializeField] private string walkAnimation;
@@ -72,6 +75,16 @@ public class Animal : MonoBehaviour
         }
 
         rigidbody2D.velocity = new Vector2(newSpeed, 0f);
+    }
+
+    protected virtual void ThrowBall(float throwStrength)
+    {
+        //Spawning snowball
+        GameObject snowball = ObjectPooler.GetObject();
+        snowball.SetActive(true);
+        snowball.transform.position = attackPoint.position;
+        
+        snowball.GetComponent<Rigidbody2D>().velocity += new Vector2(0f, throwStrength * strength);
     }
 
     protected void SetAnimation(string animation, bool loop, bool looksRight)
