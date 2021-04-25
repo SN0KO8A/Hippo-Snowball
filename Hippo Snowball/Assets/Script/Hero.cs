@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Hero : Animal
 {
+    [Tooltip("In seconds")]
+    [SerializeField] private float timeForThrow;
+    
     [Header("Controls/UI")]
     [SerializeField] private Joystick joystick;
     [SerializeField] private Button throwButton;
@@ -30,10 +33,10 @@ public class Hero : Animal
     private IEnumerator TimeThrowCooldown()
     {
         //Setting up timer and cooldown
-        snowIndicator.SetTime(TimeForThrow);
+        snowIndicator.SetTime(timeForThrow);
         snowIndicator.gameObject.SetActive(true);
         
-        yield return new WaitForSeconds(TimeForThrow);
+        yield return new WaitForSeconds(timeForThrow);
         
         //And restoring timer and ability to throwing
         snowIndicator.gameObject.SetActive(false);

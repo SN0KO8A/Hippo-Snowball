@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 public class Enemy : Animal
 {
     [Header("Enemy Stats")]
-    [SerializeField] private int level;
+    [SerializeField] private int scorePrice;
 
     [Header("Enemy Move AI")] 
     [Tooltip("Time before enemy begins run (min, max)")]
@@ -19,7 +17,6 @@ public class Enemy : Animal
     {
         base.Start();
         StartCoroutine(EnemyRunAI());
-        StartCoroutine(EnemyThrowAI());
     }
 
     private IEnumerator EnemyRunAI()
@@ -35,13 +32,15 @@ public class Enemy : Animal
         }
     }
 
-    private IEnumerator EnemyThrowAI()
+    public void ThrowBall()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(TimeForThrow);
-            ThrowBall(-1f);
-        }
+        ThrowBall(-1f);
     }
-    
+
+    protected override void Die()
+    {
+        base.Die();
+        EnemyManager.DespawnEnemy(gameObject);
+        EnemyManager.SpawnEnemy();
+    }
 }

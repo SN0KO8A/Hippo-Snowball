@@ -10,8 +10,6 @@ public class Animal : MonoBehaviour
     [SerializeField] private int lives;
     [SerializeField] private float speed;
     [SerializeField] private float strength;
-    [Tooltip("In seconds")]
-    [SerializeField] private float timeForThrow;
 
     [Space] 
     [SerializeField] private GameObject bullet;
@@ -34,8 +32,6 @@ public class Animal : MonoBehaviour
     
     private string currentAnimation = "";
     private Rigidbody2D rigidbody2D;
-    
-    protected float TimeForThrow => timeForThrow;
 
     protected virtual void Start()
     {
@@ -88,10 +84,8 @@ public class Animal : MonoBehaviour
     {
         skeleton.FlipX = looksRight;
 
-        Debug.Log($"{animation}");
         if (currentAnimation.Equals(animation))
         {
-            Debug.Log($"Hah! {animation}");
             return;
         }
 
@@ -103,21 +97,18 @@ public class Animal : MonoBehaviour
     public virtual void ToGetHit()
     {
         lives--;
-
-        canMove = false;
-        SetAnimation(getHitAnimation, false, skeleton.FlipX);
+        StartCoroutine(StunEffect());
         
         if (lives <= 0)
         {
             Die();
         }
-
-        StartCoroutine(StunEffect());
     }
 
     private IEnumerator StunEffect()
     {
         canMove = false;
+        SetAnimation(getHitAnimation, false, skeleton.FlipX);
         yield return new WaitForSeconds(skeleton.Data.FindAnimation(getHitAnimation).Duration);
         canMove = true;
     }
