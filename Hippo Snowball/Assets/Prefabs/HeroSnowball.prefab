@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 6971245150480442322}
   - component: {fileID: 2079269092107710156}
   - component: {fileID: -4200104062636974183}
-  m_Layer: 0
+  - component: {fileID: -6764504382333538176}
+  - component: {fileID: 2419013150259411418}
+  m_Layer: 8
   m_Name: Snowball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9999
   m_Sprite: {fileID: 21300000, guid: 0dfa2f45167b7044faeea65558a2b42a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,3 +106,65 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6764504382333538176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721240695042017860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b41413ba710e1348955559e54c7ce0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curveOfSize:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.48196667
+      value: 1.0582126
+      inSlope: 0.7829893
+      outSlope: 0.7829893
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19140317
+    - serializedVersion: 3
+      time: 1
+      value: 0.9952812
+      inSlope: -1.1022955
+      outSlope: -1.1022955
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15833336
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  velocityOffset: 1
+--- !u!58 &2419013150259411418
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721240695042017860}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4191111

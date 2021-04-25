@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Hero : Animal
 {
-    [Header("Hero stats")]
     [Tooltip("In seconds")]
     [SerializeField] private float timeForThrow;
     
@@ -16,8 +15,6 @@ public class Hero : Animal
     [SerializeField] private Button throwButton;
     [SerializeField] private SnowIndicator snowIndicator;
     [SerializeField] private StrengthIndicator strengthIndicator;
-
-    private bool canThrow = true;
 
     void FixedUpdate()
     {
@@ -28,13 +25,12 @@ public class Hero : Animal
     public void Throw()
     {
         ThrowBall(strengthIndicator.StrengthValue);
-        canThrow = false;
         throwButton.interactable = false;
 
-        StartCoroutine(timeThrowCooldown());
+        StartCoroutine(TimeThrowCooldown());
     }
 
-    private IEnumerator timeThrowCooldown()
+    private IEnumerator TimeThrowCooldown()
     {
         //Setting up timer and cooldown
         snowIndicator.SetTime(timeForThrow);
@@ -45,7 +41,6 @@ public class Hero : Animal
         //And restoring timer and ability to throwing
         snowIndicator.gameObject.SetActive(false);
         snowIndicator.ResetIndicator();
-        canThrow = true;
         throwButton.interactable = true;
     }
 }
