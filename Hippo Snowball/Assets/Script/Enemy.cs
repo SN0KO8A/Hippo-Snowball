@@ -13,23 +13,55 @@ public class Enemy : Animal
     [Tooltip("Duration of running (min, max)")]
     [SerializeField] private Vector2 minMaxTimeOfRunning;
 
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(EnemyRunAI());
-    }
-
+    [Header("Despawn options")] 
+    [SerializeField] private float despawnOffset;
+    
     private IEnumerator EnemyRunAI()
     {
         while (true)
         {
             //Deciding to run
             yield return new WaitForSeconds(Random.Range(minMaxTimeToThink.x, minMaxTimeToThink.y));
-            Move(Random.Range(-1,1));
+            Move(Random.Range(-1f, 1f));
             
             yield return new WaitForSeconds(Random.Range(minMaxTimeOfRunning.x, minMaxTimeOfRunning.y));
             Move(0f);
         }
+    }
+    
+    //Init method
+    public IEnumerator EnemyAppear(float ToPosX)
+    {
+        CountBoundary = false;
+        Move(2f);
+        //Until enemy reaches ToPosX
+        yield return new WaitUntil(() => transform.position.x >= ToPosX);
+        Move(0f);
+        
+        CountBoundary = true;
+        StartCoroutine(EnemyRunAI());
+    }
+
+    public IEnumerator EnemyDisappear()
+    {
+        StopCoroutine(EnemyRunAI());
+        CountBoundary = false;
+
+        //BUG: So bug is when I Stop coroutine "RunAI", it doesn't stop until last new WaitOfSeconds
+        //So problem is where I need to set up coroutines which shouldn't interference each other 
+        //Solution is here, but I'm not sure that it is correctly...
+        
+        //Until enemy reaches ToPosX
+        while (transform.position.x <= RightBoundary.position.x + despawnOffset)
+        {
+            Move(2f);
+            yield return new WaitForFixedUpdate();
+        }
+        
+        CountBoundary = true;
+        
+        EnemyManager.SpawnEnemy();
+        EnemyManager.DespawnEnemy(gameObject);
     }
 
     public void ThrowBall()
@@ -40,7 +72,13 @@ public class Enemy : Animal
     protected override void Die()
     {
         base.Die();
-        EnemyManager.DespawnEnemy(gameObject);
-        EnemyManager.SpawnEnemy();
+        StartCoroutine(EnemyDisappear());
+    }
+
+    public void SetBoundaries(Transform left, Transform right)
+    {
+        LeftBoundary = left;
+        RightBoundary = right;
+        CountBoundary = true;
     }
 }

@@ -166,8 +166,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1366995796}
   - {fileID: 1860068707}
+  - {fileID: 1366995796}
   m_Father: {fileID: 321615195}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -175
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1065,7 +1065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1366995796}
   m_Layer: 0
-  m_Name: Left
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1079,11 +1079,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366995795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.28, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 50255420}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1420504494
 GameObject:
@@ -1234,6 +1234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c391dd2cf6164409da78be78c9e744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBoundary: {fileID: 1860068707}
+  rightBoundary: {fileID: 1366995796}
   timeForThrow: 5
   enemiesToSpawn:
   - {fileID: 7682169162251814888, guid: 55d9232d8fb009f48addf928832b115c, type: 3}
@@ -1270,7 +1272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750545591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: -10.01, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1630732316}
@@ -1339,7 +1341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860068707}
   m_Layer: 0
-  m_Name: Right
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1353,11 +1355,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860068706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.66, y: 0, z: 0}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 50255420}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2111556497
 GameObject:
@@ -1398,6 +1400,9 @@ MonoBehaviour:
   strength: 12
   bullet: {fileID: 4721240695042017860, guid: 5a582d88e81c33642a197f340dbb7efc, type: 3}
   attackPoint: {fileID: 1420504495}
+  countBoundary: 1
+  leftBoundary: {fileID: 1860068707}
+  rightBoundary: {fileID: 1366995796}
   idleAnimation: Idle3
   walkAnimation: walk
   runAnimation: run

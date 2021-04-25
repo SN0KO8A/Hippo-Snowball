@@ -11,9 +11,14 @@ public class Animal : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float strength;
 
-    [Space] 
+    [Header("Parts")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform attackPoint;
+
+    [Header("Boundaries")] 
+    [SerializeField] private bool countBoundary;
+    [SerializeField] private Transform leftBoundary;
+    [SerializeField] private Transform rightBoundary;
     
     [Header("Animation")]
     [SpineAnimation,SerializeField] private string idleAnimation;
@@ -23,7 +28,7 @@ public class Animal : MonoBehaviour
     
     //States
     private bool canMove = true;
-    private bool deffeated = false;
+    private bool deffeated;
     
     //Cache
     private SkeletonAnimation skeletonAnimation;
@@ -32,9 +37,29 @@ public class Animal : MonoBehaviour
     
     private string currentAnimation = "";
     private Rigidbody2D rigidbody2D;
+    
+    //Properties
 
-    protected virtual void Start()
+    protected bool CountBoundary
     {
+        set => countBoundary = value;
+    }
+
+    protected Transform LeftBoundary
+    {
+        get => leftBoundary;
+        set => leftBoundary = value;
+    }
+
+    protected Transform RightBoundary
+    {
+        get => rightBoundary;
+        set => rightBoundary = value;
+    }
+
+    protected virtual void Awake()
+    {
+        deffeated = false;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         skeleton = skeletonAnimation.Skeleton;
         animationState = skeletonAnimation.AnimationState;
@@ -42,6 +67,15 @@ public class Animal : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         
         SetAnimation(idleAnimation, true, skeleton.FlipX);
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (countBoundary)
+        {
+            float newXPos = Mathf.Clamp(transform.position.x, leftBoundary.position.x, rightBoundary.position.x);
+            transform.position = new Vector2(newXPos, transform.position.y);
+        }
     }
 
     protected virtual void Move(float horizontalSpeed)
@@ -79,20 +113,7 @@ public class Animal : MonoBehaviour
         
         snowball.GetComponent<Rigidbody2D>().velocity += new Vector2(0f, throwStrength * strength);
     }
-
-    protected void SetAnimation(string animation, bool loop, bool looksRight)
-    {
-        skeleton.FlipX = looksRight;
-
-        if (currentAnimation.Equals(animation))
-        {
-            return;
-        }
-
-        animationState.SetAnimation(0, animation, loop);
-        currentAnimation = animation;
-    }
-
+    
     //<summary> Animal gets hit, and it loose one life
     public virtual void ToGetHit()
     {
@@ -116,6 +137,18 @@ public class Animal : MonoBehaviour
     protected virtual void Die()
     {
         deffeated = true;
-        Debug.Log("Animal: The animal was defeated");
+    }
+
+    private void SetAnimation(string animation, bool loop, bool looksRight)
+    {
+        skeleton.FlipX = looksRight;
+
+        if (currentAnimation.Equals(animation))
+        {
+            return;
+        }
+
+        animationState.SetAnimation(0, animation, loop);
+        currentAnimation = animation;
     }
 }
