@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6764504382333538176}
   - component: {fileID: 2419013150259411418}
   m_Layer: 8
-  m_Name: Snowball
+  m_Name: HeroSnowball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,14 +131,23 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.48196667
-      value: 1.0582126
-      inSlope: 0.7829893
-      outSlope: 0.7829893
+      time: 0.17779797
+      value: 0.9849628
+      inSlope: 2.9083607
+      outSlope: 2.9083607
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.19140317
+      inWeight: 0.32038972
+      outWeight: 0.2955908
+    - serializedVersion: 3
+      time: 0.4039134
+      value: 1.2631639
+      inSlope: -0.011355286
+      outSlope: -0.011355286
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.7680896
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0.9952812
@@ -152,6 +161,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   velocityOffset: 1
+  emissionParticleEffect: {fileID: 7979944500805382282, guid: 811a9129c5956ca4d89e464a54619616, type: 3}
 --- !u!58 &2419013150259411418
 CircleCollider2D:
   m_ObjectHideFlags: 0

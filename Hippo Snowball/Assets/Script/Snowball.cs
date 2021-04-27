@@ -10,9 +10,12 @@ public class Snowball : MonoBehaviour
     [SerializeField] private AnimationCurve curveOfSize;
     [Tooltip("Velocity offset for despawning the snowball with velocity less than the offset")]
     [SerializeField] private float velocityOffset;
+    [SerializeField] private GameObject emissionParticleEffect;
     
+    //For falling effect
     private float startingVelocity;
     private Vector2 startingScale;
+    
     private Rigidbody2D rigidbody2D;
     private void Start()
     {
@@ -37,7 +40,7 @@ public class Snowball : MonoBehaviour
 
     private void Update()
     {
-        //Getting result of function
+        //Getting result of function (falling effect)
         float currentSize = curveOfSize.Evaluate(rigidbody2D.velocity.y / startingVelocity);
         transform.localScale = new Vector2(startingScale.x * currentSize, startingScale.y * currentSize);
 
@@ -50,6 +53,12 @@ public class Snowball : MonoBehaviour
     private void Despawn()
     {
         transform.localScale = startingScale;
+        
+        GameObject emission = ObjectPooler.GetObject(emissionParticleEffect);
+        emission.SetActive(true);
+        emission.transform.position = transform.position;
+        ObjectPooler.DespawnObject(emissionParticleEffect, emission, 2f);
+        
         gameObject.SetActive(false);
     }
 }

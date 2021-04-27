@@ -16,8 +16,9 @@ public class Hero : Animal
     [SerializeField] private SnowIndicator snowIndicator;
     [SerializeField] private StrengthIndicator strengthIndicator;
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         float horizontalSpeed = joystick.xAxis.value;
         Move(horizontalSpeed);
     }

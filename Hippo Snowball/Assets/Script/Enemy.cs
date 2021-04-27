@@ -13,23 +13,49 @@ public class Enemy : Animal
     [Tooltip("Duration of running (min, max)")]
     [SerializeField] private Vector2 minMaxTimeOfRunning;
 
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(EnemyRunAI());
-    }
+    [Header("Spawn/Despawn options")]
+    [Tooltip("The offset need for left and right boundary position appearing")]
+    [SerializeField] private float leftOffset;
+    [SerializeField] private float rightOffset;
 
+    private Coroutine runAICoroutine;
+    
     private IEnumerator EnemyRunAI()
     {
         while (true)
         {
             //Deciding to run
             yield return new WaitForSeconds(Random.Range(minMaxTimeToThink.x, minMaxTimeToThink.y));
-            Move(Random.Range(-1,1));
+            Move(Random.Range(-1f, 1f));
             
             yield return new WaitForSeconds(Random.Range(minMaxTimeOfRunning.x, minMaxTimeOfRunning.y));
             Move(0f);
         }
+    }
+    
+    //Init method
+    public IEnumerator EnemyAppear()
+    {
+        CountBoundary = false;
+        Move(2f);
+        //Until enemy reaches ToPosX
+        yield return new WaitUntil(() => transform.position.x >= LeftBoundary.position.x + leftOffset);
+
+        CountBoundary = true;
+        runAICoroutine = StartCoroutine(EnemyRunAI());
+    }
+
+    public IEnumerator EnemyDisappear()
+    {
+        CountBoundary = false;
+        
+        Move(2f);
+        yield return new WaitUntil(() => transform.position.x > RightBoundary.position.x + rightOffset);
+        
+        CountBoundary = true;
+        
+        EnemyManager.SpawnEnemy();
+        EnemyManager.DespawnEnemy(gameObject);
     }
 
     public void ThrowBall()
@@ -40,7 +66,15 @@ public class Enemy : Animal
     protected override void Die()
     {
         base.Die();
-        EnemyManager.DespawnEnemy(gameObject);
-        EnemyManager.SpawnEnemy();
+        
+        StopCoroutine(runAICoroutine);
+        StartCoroutine(EnemyDisappear());
+    }
+
+    public void SetBoundaries(Transform left, Transform right)
+    {
+        LeftBoundary = left;
+        RightBoundary = right;
+        CountBoundary = true;
     }
 }

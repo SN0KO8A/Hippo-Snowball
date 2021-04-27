@@ -186,14 +186,18 @@ MonoBehaviour:
   strength: 12
   bullet: {fileID: 4721240695042017860, guid: 5095da2d9b919824b9440b2f2a96a7da, type: 3}
   attackPoint: {fileID: 7682169163021795142}
+  countBoundary: 0
+  leftBoundary: {fileID: 0}
+  rightBoundary: {fileID: 0}
   idleAnimation: Idle5
   walkAnimation: walk
   runAnimation: run
   getHitAnimation: gets_hit
-  level: 2
   scorePrice: 2
-  minMaxTimeToThink: {x: 0, y: 2}
+  minMaxTimeToThink: {x: 1, y: 3}
   minMaxTimeOfRunning: {x: 1, y: 3}
+  leftOffset: 0
+  rightOffset: 5
 --- !u!1 &7682169163021795141
 GameObject:
   m_ObjectHideFlags: 0

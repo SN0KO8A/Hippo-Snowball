@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+//Pooled object template
 [System.Serializable]
 class ObjectPoolItem
 {
@@ -37,14 +38,16 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public static GameObject GetObject(GameObject gameObject)
+    public static GameObject GetObject(GameObject templatePooledObject)
     {
         foreach (ObjectPoolItem current in sharedInstance.objectsToPool)
         {
-            if (gameObject.Equals(current.objectToPool))
+            //Finding pooledObject template
+            if (templatePooledObject.Equals(current.objectToPool))
             {
                 for (int i = 0; i < current.amountToPool; i++)
                 {
+                    //Getting the object
                     if (!current.pooledObjects[i].activeInHierarchy)
                     {
                         return current.pooledObjects[i];
@@ -53,7 +56,42 @@ public class ObjectPooler : MonoBehaviour
             }
         }
         
-        Debug.LogWarning($"Object Pooler: I didn't find the {gameObject} in the pool");
+        Debug.LogWarning($"Object Pooler: I didn't find the {templatePooledObject} in the pool");
         return null;
+    }
+
+    public static void DespawnObject(GameObject templatePooledObject, GameObject objectToDespawn, float timeToDespawn = 0f)
+    {
+        foreach (ObjectPoolItem current in sharedInstance.objectsToPool)
+        {
+            //Finding pooledObject template
+            if (templatePooledObject.Equals(current.objectToPool))
+            {
+                for (int i = 0; i < current.amountToPool; i++)
+                {
+                    //Finding the object
+                    if (objectToDespawn.Equals(current.pooledObjects[i]))
+                    {
+                        //Despawn
+                        if (timeToDespawn <= 0f)
+                        {
+                            objectToDespawn.SetActive(false);
+                        }
+
+                        else
+                        {
+                            //Despawning after some time
+                            sharedInstance.StartCoroutine(sharedInstance.DespawnCoroutine(objectToDespawn, timeToDespawn));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private IEnumerator DespawnCoroutine(GameObject objectToDespawn, float time)
+    {
+        yield return new WaitForSeconds(time);
+        objectToDespawn.SetActive(false);
     }
 }
