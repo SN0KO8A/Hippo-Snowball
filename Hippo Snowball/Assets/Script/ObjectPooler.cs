@@ -56,7 +56,7 @@ public class ObjectPooler : MonoBehaviour
             }
         }
         
-        Debug.LogWarning($"Object Pooler: I didn't find the {templatePooledObject} in the pool");
+        Debug.LogWarning($"Object Pooler [Spawn]: I didn't find the {templatePooledObject} in the pool");
         return null;
     }
 
@@ -83,10 +83,14 @@ public class ObjectPooler : MonoBehaviour
                             //Despawning after some time
                             sharedInstance.StartCoroutine(sharedInstance.DespawnCoroutine(objectToDespawn, timeToDespawn));
                         }
+
+                        return;
                     }
                 }
             }
         }
+        
+        Debug.LogWarning($"Object Pooler [Despawn]: I didn't find the {templatePooledObject} in the pool");
     }
 
     private IEnumerator DespawnCoroutine(GameObject objectToDespawn, float time)

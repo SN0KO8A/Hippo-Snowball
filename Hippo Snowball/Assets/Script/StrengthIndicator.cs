@@ -1,20 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StrengthIndicator : MonoBehaviour
 {
-    [SerializeField] private RectTransform indicator;
+    [SerializeField] private Image indicatorImage;
     
     [Tooltip("In seconds")]
     [SerializeField] private float timeToMax;
     
     [SerializeField] private Color colorMax;
     [SerializeField] private Color colorMin;
-
-    private Image indicatorImage;
+    
     private float strengthValue;
 
     public float StrengthValue
@@ -28,8 +28,6 @@ public class StrengthIndicator : MonoBehaviour
         {
             Debug.LogError("StrengthIndicator: timeToMax cannot be less than or equal to 0f");
         }
-        
-        indicatorImage = indicator.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -38,6 +36,6 @@ public class StrengthIndicator : MonoBehaviour
         strengthValue = Mathf.PingPong(Time.time / timeToMax, 1);
         
         indicatorImage.color = Color.Lerp(colorMin, colorMax, strengthValue);
-        indicator.localScale = new Vector2(indicator.localScale.x,strengthValue);
+        indicatorImage.fillAmount = strengthValue;
     }
 }

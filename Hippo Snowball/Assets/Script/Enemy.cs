@@ -40,7 +40,8 @@ public class Enemy : Animal
         Move(2f);
         //Until enemy reaches ToPosX
         yield return new WaitUntil(() => transform.position.x >= LeftBoundary.position.x + leftOffset);
-
+        Move(Random.Range(0f, 1f));
+        
         CountBoundary = true;
         runAICoroutine = StartCoroutine(EnemyRunAI());
     }
@@ -65,7 +66,7 @@ public class Enemy : Animal
 
     protected override void Die()
     {
-        base.Die();
+        GameController.AddScore(scorePrice);
         
         StopCoroutine(runAICoroutine);
         StartCoroutine(EnemyDisappear());
