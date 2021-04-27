@@ -38,7 +38,11 @@ public class Animal : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     
     //Properties
-
+    public int Lives
+    {
+        get => lives;
+    }
+    
     protected bool CountBoundary
     {
         set => countBoundary = value;

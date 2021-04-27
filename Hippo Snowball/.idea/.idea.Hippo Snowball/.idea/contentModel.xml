@@ -329,7 +329,9 @@
           <e p="Animal.cs" t="Include" />
           <e p="Enemy.cs" t="Include" />
           <e p="EnemyManager.cs" t="Include" />
+          <e p="GameController.cs" t="Include" />
           <e p="Hero.cs" t="Include" />
+          <e p="MenuManager.cs" t="Include" />
           <e p="ObjectPooler.cs" t="Include" />
           <e p="Snowball.cs" t="Include" />
           <e p="SnowIndicator.cs" t="Include" />
