@@ -223,6 +223,7 @@ MonoBehaviour:
   runAnimation: run
   getHitAnimation: gets_hit
   scorePrice: 3
-  minMaxTimeToThink: {x: 0, y: 2}
+  minMaxTimeToThink: {x: 1, y: 3}
   minMaxTimeOfRunning: {x: 1, y: 3}
-  despawnOffset: 5
+  leftOffset: 0
+  rightOffset: 5

@@ -28,7 +28,6 @@ public class Animal : MonoBehaviour
     
     //States
     private bool canMove = true;
-    private bool deffeated;
     
     //Cache
     private SkeletonAnimation skeletonAnimation;
@@ -59,7 +58,6 @@ public class Animal : MonoBehaviour
 
     protected virtual void Awake()
     {
-        deffeated = false;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         skeleton = skeletonAnimation.Skeleton;
         animationState = skeletonAnimation.AnimationState;
@@ -80,6 +78,7 @@ public class Animal : MonoBehaviour
 
     protected virtual void Move(float horizontalSpeed)
     {
+        Debug.Log($"Moving {gameObject.name}: {horizontalSpeed}");
         if (canMove)
         {
             float newSpeed = horizontalSpeed * speed;
@@ -118,11 +117,15 @@ public class Animal : MonoBehaviour
     public virtual void ToGetHit()
     {
         lives--;
-        StartCoroutine(StunEffect());
         
         if (lives <= 0)
         {
             Die();
+        }
+
+        else
+        {
+            StartCoroutine(StunEffect());
         }
     }
 
@@ -136,7 +139,7 @@ public class Animal : MonoBehaviour
 
     protected virtual void Die()
     {
-        deffeated = true;
+        
     }
 
     private void SetAnimation(string animation, bool loop, bool looksRight)

@@ -13,8 +13,12 @@ public class Enemy : Animal
     [Tooltip("Duration of running (min, max)")]
     [SerializeField] private Vector2 minMaxTimeOfRunning;
 
-    [Header("Despawn options")] 
-    [SerializeField] private float despawnOffset;
+    [Header("Spawn/Despawn options")]
+    [Tooltip("The offset need for left and right boundary position appearing")]
+    [SerializeField] private float leftOffset;
+    [SerializeField] private float rightOffset;
+
+    private Coroutine runAICoroutine;
     
     private IEnumerator EnemyRunAI()
     {
@@ -30,33 +34,23 @@ public class Enemy : Animal
     }
     
     //Init method
-    public IEnumerator EnemyAppear(float ToPosX)
+    public IEnumerator EnemyAppear()
     {
         CountBoundary = false;
         Move(2f);
         //Until enemy reaches ToPosX
-        yield return new WaitUntil(() => transform.position.x >= ToPosX);
-        Move(0f);
-        
+        yield return new WaitUntil(() => transform.position.x >= LeftBoundary.position.x + leftOffset);
+
         CountBoundary = true;
-        StartCoroutine(EnemyRunAI());
+        runAICoroutine = StartCoroutine(EnemyRunAI());
     }
 
     public IEnumerator EnemyDisappear()
     {
-        StopCoroutine(EnemyRunAI());
         CountBoundary = false;
-
-        //BUG: So bug is when I Stop coroutine "RunAI", it doesn't stop until last new WaitOfSeconds
-        //So problem is where I need to set up coroutines which shouldn't interference each other 
-        //Solution is here, but I'm not sure that it is correctly...
         
-        //Until enemy reaches ToPosX
-        while (transform.position.x <= RightBoundary.position.x + despawnOffset)
-        {
-            Move(2f);
-            yield return new WaitForFixedUpdate();
-        }
+        Move(2f);
+        yield return new WaitUntil(() => transform.position.x > RightBoundary.position.x + rightOffset);
         
         CountBoundary = true;
         
@@ -72,6 +66,8 @@ public class Enemy : Animal
     protected override void Die()
     {
         base.Die();
+        
+        StopCoroutine(runAICoroutine);
         StartCoroutine(EnemyDisappear());
     }
 

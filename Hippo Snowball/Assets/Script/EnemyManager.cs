@@ -11,7 +11,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Transform rightBoundary;
     
     [SerializeField] private float timeForThrow;
-    [SerializeField] private List<GameObject> enemiesToSpawn;
+    [SerializeField] private int countOfEnemies = 3;
+    
+    [SerializeField] private List<GameObject> enemies;
     [SerializeField] private Transform spawnPoint;
     
     private List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -30,7 +32,7 @@ public class EnemyManager : MonoBehaviour
         Initialize();
         
         //Spawning enemies
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < countOfEnemies; i++)
         {
             SpawnEnemy();
         }
@@ -40,7 +42,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Initialize()
     {
-        foreach (GameObject current in enemiesToSpawn)
+        foreach (GameObject current in enemies)
         {
             GameObject enemy = Instantiate(current, spawnPoint.position, spawnPoint.rotation, transform);
             enemy.GetComponent<Enemy>().SetBoundaries(leftBoundary, rightBoundary);
@@ -64,7 +66,7 @@ public class EnemyManager : MonoBehaviour
         
         //Get random end position within boundaries
         float newPosX = Random.Range(sharedInstace.leftBoundary.position.x, sharedInstace.rightBoundary.position.x);
-        sharedInstace.StartCoroutine(enemy.GetComponent<Enemy>().EnemyAppear(newPosX));
+        sharedInstace.StartCoroutine(enemy.GetComponent<Enemy>().EnemyAppear());
         
         sharedInstace.activeEnemies.Add(enemy);
     }

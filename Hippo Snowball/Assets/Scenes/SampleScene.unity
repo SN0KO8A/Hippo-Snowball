@@ -645,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 133
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1237,7 +1237,8 @@ MonoBehaviour:
   leftBoundary: {fileID: 1860068707}
   rightBoundary: {fileID: 1366995796}
   timeForThrow: 5
-  enemiesToSpawn:
+  countOfEnemies: 3
+  enemies:
   - {fileID: 7682169162251814888, guid: 55d9232d8fb009f48addf928832b115c, type: 3}
   - {fileID: 7682169162251814888, guid: 741e78436ba9f394bbf4369c2af3a3d3, type: 3}
   - {fileID: 7682169162251814888, guid: 9ece7e23ae83d8d44a9edb93798fa631, type: 3}
