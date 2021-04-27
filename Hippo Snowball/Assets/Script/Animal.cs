@@ -78,7 +78,6 @@ public class Animal : MonoBehaviour
 
     protected virtual void Move(float horizontalSpeed)
     {
-        Debug.Log($"Moving {gameObject.name}: {horizontalSpeed}");
         if (canMove)
         {
             float newSpeed = horizontalSpeed * speed;
