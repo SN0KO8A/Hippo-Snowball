@@ -40,9 +40,7 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator ShowStarResult(float delay, float delayAmongStars)
     {
-        Debug.Log("Im here");
         yield return new WaitForSeconds(delay);
-        Debug.Log("Hey!");
         for(int i = 0; i < starsResult; i++)
         {
             stars[i].SetActive(true);

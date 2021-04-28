@@ -27,7 +27,7 @@ public class Snowball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log($"Snowball hit: {other.gameObject.name}");
+        //Debug.Log($"Snowball hit: {other.gameObject.name}");
         Animal animal = other.gameObject.GetComponent<Animal>();
 
         if (animal)
@@ -54,6 +54,7 @@ public class Snowball : MonoBehaviour
     {
         transform.localScale = startingScale;
         
+        //Handing snowball emission (spawn and despawn)
         GameObject emission = ObjectPooler.GetObject(emissionParticleEffect);
         emission.SetActive(true);
         emission.transform.position = transform.position;

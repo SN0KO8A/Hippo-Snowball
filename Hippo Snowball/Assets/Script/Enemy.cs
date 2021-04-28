@@ -25,9 +25,6 @@ public class Enemy : Animal
         while (true)
         {
             //Deciding to run
-            Move(0f);
-            yield return new WaitForSeconds(Random.Range(minMaxTimeToThink.x, minMaxTimeToThink.y));
-
             if (transform.position.x + transform.localScale.x >= RightBoundary.position.x)
             {
                 Move(Random.Range(-1f, -0.25f));
@@ -44,6 +41,9 @@ public class Enemy : Animal
             }
             
             yield return new WaitForSeconds(Random.Range(minMaxTimeOfRunning.x, minMaxTimeOfRunning.y));
+            
+            Move(0f);
+            yield return new WaitForSeconds(Random.Range(minMaxTimeToThink.x, minMaxTimeToThink.y));
         }
     }
     
@@ -52,9 +52,9 @@ public class Enemy : Animal
     {
         CountBoundary = false;
         Move(2f);
-        //Until enemy reaches ToPosX
+        
+        //Until enemy reaches left boundary
         yield return new WaitUntil(() => transform.position.x >= LeftBoundary.position.x + leftOffset);
-        Move(Random.Range(0f, 1f));
         
         CountBoundary = true;
         runAICoroutine = StartCoroutine(EnemyRunAI());
@@ -63,12 +63,12 @@ public class Enemy : Animal
     public IEnumerator EnemyDisappear()
     {
         CountBoundary = false;
-        
         Move(2f);
+        
+        //Until enemy reaches right boundary
         yield return new WaitUntil(() => transform.position.x > RightBoundary.position.x + rightOffset);
         
         CountBoundary = true;
-        
         EnemyManager.SpawnEnemy();
         EnemyManager.DespawnEnemy(gameObject);
     }
