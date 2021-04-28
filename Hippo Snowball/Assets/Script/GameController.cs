@@ -19,11 +19,11 @@ public class GameController : MonoBehaviour
     private int currentScore = 0;
     private bool gameEnd = false;
     
-    private static GameController gameController;
+    private static GameController sharedInstance;
 
     private void Awake()
     {
-        gameController = this;
+        sharedInstance = this;
     }
 
     private void Start()
@@ -62,12 +62,12 @@ public class GameController : MonoBehaviour
 
     public static void AddScore(int amount)
     {
-        gameController.currentScore += amount;
-        gameController.DisplayScores();
+        sharedInstance.currentScore += amount;
+        sharedInstance.DisplayScores();
         
-        if (gameController.currentScore >= gameController.scoreToWin)
+        if (sharedInstance.currentScore >= sharedInstance.scoreToWin)
         {
-            gameController.WinGame();
+            sharedInstance.WinGame();
         }
     }
 
@@ -75,13 +75,13 @@ public class GameController : MonoBehaviour
     {
         gameEnd = true;
         menuManager.OpenWinMenu(hero.Lives);
-        Debug.Log("You win!");
+        //Debug.Log("You win!");
     }
 
     private void LoseGame()
     {
         gameEnd = true;
         menuManager.OpenLoseMenu();
-        Debug.Log("You lose!");
+        //Debug.Log("You lose!");
     }
 }

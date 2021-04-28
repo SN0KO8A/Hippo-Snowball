@@ -328,6 +328,7 @@
         <e p="Script" t="Include">
           <e p="Animal.cs" t="Include" />
           <e p="Enemy.cs" t="Include" />
+          <e p="EnemyHitEffect.cs" t="Include" />
           <e p="EnemyManager.cs" t="Include" />
           <e p="GameController.cs" t="Include" />
           <e p="Hero.cs" t="Include" />

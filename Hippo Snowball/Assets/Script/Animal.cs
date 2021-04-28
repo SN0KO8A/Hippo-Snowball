@@ -75,8 +75,8 @@ public class Animal : MonoBehaviour
     {
         if (countBoundary)
         {
-            float newXPos = Mathf.Clamp(transform.position.x, leftBoundary.position.x, rightBoundary.position.x);
-            transform.position = new Vector2(newXPos, transform.position.y);
+            float newXPos = Mathf.Clamp(rigidbody2D.position.x, leftBoundary.position.x, rightBoundary.position.x);
+            rigidbody2D.position = new Vector2(newXPos, rigidbody2D.position.y);
         }
     }
 
