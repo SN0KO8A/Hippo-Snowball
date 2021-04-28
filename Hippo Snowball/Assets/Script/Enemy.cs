@@ -81,6 +81,7 @@ public class Enemy : Animal
     protected override void Die()
     {
         GameController.AddScore(scorePrice);
+        EnemyHitEffect.Display();
         
         StopCoroutine(runAICoroutine);
         StartCoroutine(EnemyDisappear());

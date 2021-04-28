@@ -162,6 +162,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   velocityOffset: 1
   emissionParticleEffect: {fileID: 7979944500805382282, guid: 811a9129c5956ca4d89e464a54619616, type: 3}
+  enemyHitEffect: {fileID: 3103690700092139465, guid: 709ab4f2d4ee98e45b1f03ff50bd443f, type: 3}
 --- !u!58 &2419013150259411418
 CircleCollider2D:
   m_ObjectHideFlags: 0
